@@ -7,42 +7,42 @@ const categories = [
   {
     label: 'Hotels',
     description: 'Perfect for stays with concierge service',
-    image: 'src/assets/hotel.png',
+    image: './src/assets/hotel.png',
     query: 'hotel',
   },
   {
     label: 'Apartments',
     description: 'Homely comfort with more room to relax',
-    image: 'src/assets/apartments.png',
+    image: './src/assets/apartments.png',
     query: 'apartment',
   },
   {
     label: 'Resorts',
     description: 'Full-service destinations with daily activities',
-    image: 'src/assets/resorts.png',
+    image: './src/assets/resorts.png',
     query: 'resort',
   },
   {
     label: 'Villas',
     description: 'Private escapes with luxurious amenities',
-    image: 'src/assets/villas.png',
+    image: './src/assets/villas.png',
     query: 'villa',
   },
 ];
 
 const moreAccommodation = [
-  { label: 'Lagos', count: '1,211 properties', image: '/assets/city-lagos.jpg' },
-  { label: 'Abuja', count: '876 properties', image: '/assets/city-abuja.jpg' },
-  { label: 'Port Harcourt', count: '452 properties', image: '/assets/city-portharcourt.jpg' },
-  { label: 'Ibadan', count: '301 properties', image: '/assets/city-ibadan.jpg' },
+  { label: 'Lagos', count: '1,211 properties', image: './src/assets/city-lagos.jpg' },
+  { label: 'Abuja', count: '876 properties', image: './src/assets/city-abuja.jpg' },
+  { label: 'Port Harcourt', count: '452 properties', image: './src/assets/city-portharcourt.jpg' },
+  { label: 'Ibadan', count: '301 properties', image: './src/assets/city-ibadan.jpg' },
 ];
 
 const trending = [
-  { label: 'Lagos', image: '/assets/trending-lagos.jpg' },
-  { label: 'Dubai', image: '/assets/trending-dubai.jpg' },
-  { label: 'London', image: '/assets/trending-london.jpg' },
-  { label: 'Accra', image: '/assets/trending-accra.jpg' },
-  { label: 'Makkah', image: '/assets/trending-mecca.jpg' },
+  { label: 'Lagos', image: './src/assets/trending-lagos.jpg' },
+  { label: 'Dubai', image: './src/assets/trending-dubai.jpg' },
+  { label: 'London', image: './src/assets/trending-london.jpg' },
+  { label: 'Accra', image: './src/assets/trending-accra.jpg' },
+  { label: 'Makkah', image: './src/assets/trending-mecca.jpg' },
 ];
 
 const highlights = [

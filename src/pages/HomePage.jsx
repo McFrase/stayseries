@@ -7,25 +7,25 @@ const categories = [
   {
     label: 'Hotels',
     description: 'Perfect for stays with concierge service',
-    image: './src/assets/hotel.png',
+    image: '/assets/hotel.png',
     query: 'hotel',
   },
   {
     label: 'Apartments',
     description: 'Homely comfort with more room to relax',
-    image: './src/assets/apartments.png',
+    image: '/assets/apartments.png',
     query: 'apartment',
   },
   {
     label: 'Resorts',
     description: 'Full-service destinations with daily activities',
-    image: './src/assets/resorts.png',
+    image: '/assets/resorts.png',
     query: 'resort',
   },
   {
     label: 'Villas',
     description: 'Private escapes with luxurious amenities',
-    image: './src/assets/villas.png',
+    image: '/assets/villas.png',
     query: 'villa',
   },
 ];
@@ -59,7 +59,7 @@ export default function HomePage() {
       <section className="home-hero">
         <video
           className="home-hero__video"
-          src="./src/assets/Stayseries Web Hero Video.mp4"
+          src="/assets/Stayseries Web Hero Video.mp4"
           poster="/assets/hero-poster.jpg"
           autoPlay
           muted

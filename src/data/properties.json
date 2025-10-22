@@ -9,7 +9,7 @@
     "price": 532000,
     "currency": "NGN",
     "blurb": "At the heart of Victoria Island, this hotel offers sky lounge views, a palm-framed pool terrace, and curated concierge experiences tailored for weekend escapes.",
-    "images": ["/assets/p1-1.jpg", "/assets/p1-2.jpg", "/assets/p1-3.jpg", "/assets/p1-4.jpg", "/assets/p1-5.jpg"],
+    "images": ["/src/assets/property-1.png", "/assets/p1-2.jpg", "/assets/p1-3.jpg", "/assets/p1-4.jpg", "/assets/p1-5.jpg"],
     "amenities": ["Free WiFi", "Outdoor swimming pool", "Free parking", "Spa and wellness centre", "Family rooms", "Private bathroom"],
     "coords": [6.4284, 3.4219]
   },
@@ -23,7 +23,7 @@
     "price": 286000,
     "currency": "NGN",
     "blurb": "Serviced apartments with chef-on-call, work-ready lounges, and a rooftop cinema for late-night screenings.",
-    "images": ["/assets/p1-2.jpg", "/assets/p1-3.jpg", "/assets/p1-4.jpg", "/assets/p1-5.jpg", "/assets/p1-1.jpg"],
+    "images": ["/src/assets/property-2.png", "/assets/p1-3.jpg", "/assets/p1-4.jpg", "/assets/p1-5.jpg", "/assets/p1-1.jpg"],
     "amenities": ["Free WiFi", "Kitchenette", "Fitness centre", "Outdoor swimming pool", "Airport shuttle", "Private bathroom"],
     "coords": [6.4412, 3.4767]
   },
@@ -37,7 +37,7 @@
     "price": 452000,
     "currency": "NGN",
     "blurb": "A riverside resort with boat transfers, full-service spa rituals, and curated rainforest excursions.",
-    "images": ["/assets/p1-3.jpg", "/assets/p1-4.jpg", "/assets/p1-5.jpg", "/assets/p1-1.jpg", "/assets/p1-2.jpg"],
+    "images": ["/src/assets/property-3.png", "/assets/p1-4.jpg", "/assets/p1-5.jpg", "/assets/p1-1.jpg", "/assets/p1-2.jpg"],
     "amenities": ["River view", "Spa and wellness centre", "Outdoor swimming pool", "24-hour front desk", "Free parking", "Airport shuttle"],
     "coords": [4.8353, 7.0156]
   },
@@ -51,7 +51,7 @@
     "price": 389000,
     "currency": "NGN",
     "blurb": "Low-rise villas with private courtyards, curated art collections, and chef-led dining salons.",
-    "images": ["/assets/p1-4.jpg", "/assets/p1-5.jpg", "/assets/p1-1.jpg", "/assets/p1-2.jpg", "/assets/p1-3.jpg"],
+    "images": ["/src/assets/property-4.png", "/assets/p1-5.jpg", "/assets/p1-1.jpg", "/assets/p1-2.jpg", "/assets/p1-3.jpg"],
     "amenities": ["Private parking", "Restaurant", "Spa and wellness centre", "Fitness centre", "Family rooms", "Private bathroom"],
     "coords": [9.0364, 7.5085]
   },

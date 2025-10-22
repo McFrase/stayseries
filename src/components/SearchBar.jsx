@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import bedIcon from '@/assets/bed.svg';
 import calendarIcon from '@/assets/calendar.svg';
 import userIcon from '@/assets/users.svg';
+import dropDownIcon from '@/assets/dropdown.svg';
 
 const defaultGuests = { adults: 2, children: 0, rooms: 1 };
 
@@ -134,7 +135,7 @@ export default function SearchBar({ className, dense = false }) {
           onClick={() => setOpenGuests((v) => !v)}
         >
           {guestsToString(guests)}
-          <span className="search-bar__chev">▾</span>
+            <img src={dropDownIcon} alt="" aria-hidden className="search-bar__chev" />
         </button>
 
         {openGuests && (

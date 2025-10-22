@@ -18,16 +18,42 @@
   --font-ui: 'Bariol', system-ui, -apple-system, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
 }
 
-/* font-face placeholders — supply real font files later */
 @font-face {
   font-family: 'Russila';
-  src: url('/fonts/Russila.woff2') format('woff2');
+  src: url('/fonts/Rusillaserif-Light.ttf') format('truetype');
   font-display: swap;
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Russila';
+  src: url('/fonts/Rusillaserif-Regular.ttf') format('truetype');
+  font-display: swap;
+  font-weight: 400;
+  font-style: normal;
 }
 
 @font-face {
   font-family: 'Bariol';
-  src: url('/fonts/Bariol.woff2') format('woff2');
+  src: url('/fonts/bariol_light-webfont.ttf') format('truetype');
   font-display: swap;
+  font-weight: 300;
+  font-style: normal;
 }
 
+@font-face {
+  font-family: 'Bariol';
+  src: url('/fonts/bariol_regular-webfont.ttf') format('truetype');
+  font-display: swap;
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Bariol';
+  src: url('/fonts/bariol_bold-webfont.ttf') format('truetype');
+  font-display: swap;
+  font-weight: 700;
+  font-style: normal;
+}

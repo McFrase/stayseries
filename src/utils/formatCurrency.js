@@ -21,3 +21,18 @@ export function formatCurrency(amount, currency = 'NGN', options = {}) {
   }).format(amount);
 }
 
+export function formatCurrencyCode(amount, currency = 'NGN') {
+  if (amount === undefined || amount === null) {
+    return '';
+  }
+
+  const locale = defaultLocaleByCurrency[currency] ?? 'en-GB';
+
+  return new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency,
+    currencyDisplay: 'code',
+    maximumFractionDigits: 0,
+    minimumFractionDigits: 0,
+  }).format(amount);
+}

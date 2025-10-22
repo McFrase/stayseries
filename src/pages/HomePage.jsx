@@ -7,25 +7,25 @@ const categories = [
   {
     label: 'Hotels',
     description: 'Perfect for stays with concierge service',
-    image: '/assets/category-hotel.jpg',
+    image: 'src/assets/hotel.png',
     query: 'hotel',
   },
   {
     label: 'Apartments',
     description: 'Homely comfort with more room to relax',
-    image: '/assets/category-apartment.jpg',
+    image: 'src/assets/apartments.png',
     query: 'apartment',
   },
   {
     label: 'Resorts',
     description: 'Full-service destinations with daily activities',
-    image: '/assets/category-resort.jpg',
+    image: 'src/assets/resorts.png',
     query: 'resort',
   },
   {
     label: 'Villas',
     description: 'Private escapes with luxurious amenities',
-    image: '/assets/category-villa.jpg',
+    image: 'src/assets/villas.png',
     query: 'villa',
   },
 ];
@@ -52,7 +52,7 @@ const highlights = [
 ];
 
 export default function HomePage() {
-  const featured = properties.slice(0, 6);
+  const featured = properties.slice(0, 4);
 
   return (
     <div className="home">
@@ -69,11 +69,18 @@ export default function HomePage() {
           <track kind="captions" />
         </video>
         <div className="home-hero__overlay">
-          <div className="home-hero__copy">
-            <h1>Find your next stay</h1>
-            <p>Search low prices on hotels, homes and much more.</p>
+          <div className="container home-hero__container">
+            <div className="home-hero__copy">
+              <h1>Find your next stay</h1>
+              <p>Search low prices on hotels, homes and much more.</p>
+            </div>
           </div>
-          <SearchBar className="home-hero__search" />
+        </div>
+      </section>
+
+      <section className="home-search">
+        <div className="container home-search__inner">
+          <SearchBar className="home-search__bar" />
         </div>
       </section>
 
@@ -91,8 +98,6 @@ export default function HomePage() {
                 <img src={category.image} alt={`${category.label} category`} />
                 <div>
                   <h3>{category.label}</h3>
-                  <p>{category.description}</p>
-                  <span>Explore {category.label.toLowerCase()}</span>
                 </div>
               </Link>
             ))}
@@ -103,11 +108,18 @@ export default function HomePage() {
       <section className="home__section">
         <div className="container">
           <div className="home__header">
-            <h2 className="section-heading">Last minute hotels near you</h2>
+            <h2 className="section-heading">Stay at our top unique properties</h2>
+            <p className="section-subtitle">From castles and villas to boats and igloos, we've got it all</p>
           </div>
           <div className="home__grid">
             {featured.map((property) => (
-              <PropertyCard key={property.id} property={property} variant="grid" />
+              <PropertyCard
+                key={property.id}
+                property={property}
+                variant="grid"
+                showAction={false}
+                showStars={false}
+              />
             ))}
           </div>
         </div>

@@ -1,3 +1,4 @@
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import properties from '@/data/properties.json';
 import SearchBar from '@/components/SearchBar';
@@ -31,28 +32,144 @@ const categories = [
 ];
 
 const moreAccommodation = [
-  { label: 'Lagos', count: '1,211 properties', image: './src/assets/city-lagos.jpg' },
-  { label: 'Abuja', count: '876 properties', image: './src/assets/city-abuja.jpg' },
-  { label: 'Port Harcourt', count: '452 properties', image: './src/assets/city-portharcourt.jpg' },
-  { label: 'Ibadan', count: '301 properties', image: './src/assets/city-ibadan.jpg' },
+  { label: 'Lagos', count: '1,311 properties', image: '/assets/lagos.jpg' },
+  { label: 'Ikeja', count: '259 properties', image: '/assets/ikeja.png' },
+  { label: 'Abuja', count: '976 properties', image: '/assets/abuja.png' },
+  { label: 'Lekki', count: '1,019 properties', image: '/assets/lekki.png' },
+  { label: 'Ibadan', count: '241 properties', image: '/assets/ibadan.png' },
+  { label: 'Benin City', count: '103 properties', image: '/assets/benin.jpg' },
 ];
 
 const trending = [
-  { label: 'Lagos', image: './src/assets/trending-lagos.jpg' },
-  { label: 'Dubai', image: './src/assets/trending-dubai.jpg' },
-  { label: 'London', image: './src/assets/trending-london.jpg' },
-  { label: 'Accra', image: './src/assets/trending-accra.jpg' },
-  { label: 'Makkah', image: './src/assets/trending-mecca.jpg' },
+  { label: 'Lagos', image: '/assets/trending-lagos.png', row: 1 },
+  { label: 'Ikeja', image: '/assets/trending-ikeja.png', row: 1 },
+  { label: 'Abuja', image: '/assets/trending-abuja.png', row: 2 },
+  { label: 'London', image: '/assets/trending-london.png', row: 2 },
+  { label: 'Makkah', image: '/assets/trending-mecca.png', row: 2 },
 ];
 
 const highlights = [
-  { title: 'Book now, pay at the property', description: 'FREE cancellation on most rooms' },
-  { title: '2+ million properties worldwide', description: 'Hotels, villas, houses, apartments and more…' },
-  { title: 'Trusted customer service 24/7', description: 'We’re always here to help' },
+  {
+    title: 'Book now, pay at the property',
+    description: 'FREE cancellation on most rooms',
+    image: '/assets/book now.png',
+  },
+  {
+    title: '2+ million properties worldwide',
+    description: 'Hotels, guest houses, apartments, and more...',
+    image: '/assets/2m+ properties.png',
+  },
+  {
+    title: 'Trusted customer service you can rely on, 24/7',
+    description: "We're always here to help",
+    image: '/assets/trusted support.png',
+  },
+];
+
+const offers = [
+  {
+    id: 'offer-quick-escape',
+    title: 'Quick escape. Quality time',
+    description: 'Save up to 20% with a Getaway Deal.',
+    cta: 'Save on stays',
+    image: '/assets/offer-1.png',
+    alt: 'Couple enjoying a boat cruise together',
+  },
+  {
+    id: 'offer-holiday-home',
+    eyebrow: 'Holiday rentals',
+    title: 'Live the dream in a holiday home',
+    description: 'Choose from houses, villas, chalets and more.',
+    cta: 'Book yours',
+    image: '/assets/offer-2.png',
+    alt: 'Interior of a bright holiday home kitchen',
+  },
+  {
+    id: 'offer-flexible-work',
+    eyebrow: 'Business travel',
+    title: 'Stay flexible on your next work trip',
+    description: 'Unlock corporate-ready stays with flexible cancellation.',
+    cta: 'See work stays',
+    image: '/assets/offer-1.png',
+    alt: 'Professional working on a laptop while travelling',
+  },
 ];
 
 export default function HomePage() {
   const featured = properties.slice(0, 4);
+  const guestFavorites = properties.slice(4, 8);
+
+  const [offerIndex, setOfferIndex] = useState(0);
+  const [offersPerView, setOffersPerView] = useState(2);
+  const [offerStep, setOfferStep] = useState(0);
+  const offerViewportRef = useRef(null);
+  const offerCardRef = useRef(null);
+
+  const recalcOfferLayout = useCallback(() => {
+    const viewport = offerViewportRef.current;
+    const card = offerCardRef.current;
+    if (!viewport || !card) return;
+
+    const cardWidth = card.offsetWidth;
+    const computed = window.getComputedStyle(card);
+    const marginRight = parseFloat(computed.marginRight) || 0;
+
+    setOfferStep(cardWidth + marginRight);
+
+    const viewportWidth = viewport.offsetWidth;
+    const cardsVisible = Math.max(
+      1,
+      Math.floor((viewportWidth + marginRight) / (cardWidth + marginRight)),
+    );
+    setOffersPerView(cardsVisible);
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => recalcOfferLayout();
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [recalcOfferLayout]);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      recalcOfferLayout();
+    }, 120);
+    return () => window.clearTimeout(timer);
+  }, [recalcOfferLayout]);
+
+  useEffect(() => {
+    setOfferIndex((prev) => Math.min(prev, Math.max(0, offers.length - offersPerView)));
+  }, [offersPerView]);
+
+  const maxOfferIndex = Math.max(0, offers.length - offersPerView);
+
+  const handleOfferPrev = () => {
+    setOfferIndex((prev) => {
+      if (maxOfferIndex === 0) return 0;
+      return prev === 0 ? maxOfferIndex : prev - 1;
+    });
+  };
+
+  const handleOfferNext = useCallback(() => {
+    setOfferIndex((prev) => {
+      if (maxOfferIndex === 0) return 0;
+      return prev >= maxOfferIndex ? 0 : prev + 1;
+    });
+  }, [maxOfferIndex]);
+
+  useEffect(() => {
+    if (maxOfferIndex === 0) return undefined;
+
+    const interval = window.setInterval(() => {
+      handleOfferNext();
+    }, 6000);
+
+    return () => window.clearInterval(interval);
+  }, [handleOfferNext, maxOfferIndex]);
+
+  const offerTrackStyle = offerStep > 0 ? { transform: `translateX(-${offerIndex * offerStep}px)` } : undefined;
+  const navDisabled = maxOfferIndex === 0;
 
   return (
     <div className="home">
@@ -60,7 +177,7 @@ export default function HomePage() {
         <video
           className="home-hero__video"
           src="/assets/Stayseries Web Hero Video.mp4"
-          poster="/assets/hero-poster.jpg"
+          poster="/assets/hero fallback.jpg"
           autoPlay
           muted
           loop
@@ -98,6 +215,8 @@ export default function HomePage() {
                 <img src={category.image} alt={`${category.label} category`} />
                 <div>
                   <h3>{category.label}</h3>
+                  <p>{category.description}</p>
+                  <span>Explore {category.label.toLowerCase()}</span>
                 </div>
               </Link>
             ))}
@@ -109,7 +228,7 @@ export default function HomePage() {
         <div className="container">
           <div className="home__header">
             <h2 className="section-heading">Stay at our top unique properties</h2>
-            <p className="section-subtitle">From castles and villas to boats and igloos, we've got it all</p>
+            <p className="section-subtitle">From castles and villas to boats and igloos, we have it all.</p>
           </div>
           <div className="home__grid">
             {featured.map((property) => (
@@ -125,7 +244,75 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="home__section">
+        <div className="container home-offers">
+          <div className="home-offers__header">
+            <div>
+              <h2 className="section-heading home-offers__title">Offers</h2>
+              <p className="home-offers__subtitle">Promotions, deals and special offers for you</p>
+            </div>
+            <div className="home-offers__nav">
+              <button
+                type="button"
+                onClick={handleOfferPrev}
+                disabled={navDisabled}
+                aria-label="Previous offer"
+              >
+                ‹
+              </button>
+              <button
+                type="button"
+                onClick={handleOfferNext}
+                disabled={navDisabled}
+                aria-label="Next offer"
+              >
+                ›
+              </button>
+            </div>
+          </div>
+          <div className="home-offers__viewport" ref={offerViewportRef}>
+            <div className="home-offers__track" style={offerTrackStyle}>
+              {offers.map((offer, index) => (
+                <article
+                  key={offer.id}
+                  className="home-offers__card"
+                  ref={index === 0 ? offerCardRef : null}
+                >
+                  <div className="home-offers__content">
+                    {offer.eyebrow ? <span className="home-offers__eyebrow">{offer.eyebrow}</span> : null}
+                    <h3 className="home-offers__card-title">{offer.title}</h3>
+                    <p className="home-offers__description">{offer.description}</p>
+                    <button type="button" className="btn btn-accent home-offers__cta">
+                      {offer.cta}
+                    </button>
+                  </div>
+                  <div className="home-offers__image">
+                    <img src={offer.image} alt={offer.alt} loading="lazy" onLoad={recalcOfferLayout} />
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
 
+      <section className="home__section">
+        <div className="container">
+          <h2 className="section-heading">Homes guests love</h2>
+          <p className="section-subtitle">Stay where travellers cannot stop talking about the experience.</p>
+          <div className="home__grid">
+            {guestFavorites.map((property) => (
+              <PropertyCard
+                key={property.id}
+                property={property}
+                variant="grid"
+                showAction={false}
+                showStars={false}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
 
       <section className="home__section">
         <div className="container">
@@ -145,31 +332,63 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="home__section">
+        <div className="container home__highlights">
+          {highlights.map((highlight) => (
+            <div key={highlight.title} className="home__highlight-card">
+              <div className="home__highlight-image">
+                <img src={highlight.image} alt="" aria-hidden="true" />
+              </div>
+              <div className="home__highlight-body">
+                <h3>{highlight.title}</h3>
+                <p>{highlight.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       <section className="home__section home__section--alt">
         <div className="container">
           <h2 className="section-heading">Trending destinations</h2>
           <p className="section-subtitle">Most popular choices for travellers from Nigeria.</p>
           <div className="home__trending">
-            {trending.map((item) => (
-              <Link key={item.label} to={`/search?q=${encodeURIComponent(item.label)}`} className="home__trend-card">
-                <img src={item.image} alt={`${item.label} destination`} />
-                <span>{item.label}</span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="home__section">
-        <div className="container home__highlights">
-          {highlights.map((highlight) => (
-            <div key={highlight.title} className="home__highlight-card">
-              <h3>{highlight.title}</h3>
-              <p>{highlight.description}</p>
+            <div className="home__trending-row home__trending-row-1">
+              {trending
+                .filter((item) => item.row === 1)
+                .map((item) => (
+                  <Link
+                    key={item.label}
+                    to={`/search?q=${encodeURIComponent(item.label)}`}
+                    className="home__trend-card"
+                    style={{
+                      backgroundImage: `linear-gradient(180deg, rgba(179, 150, 109, 0.64) 32.96%, rgba(115, 115, 115, 0) 100%), url('${item.image}')`,
+                    }}
+                  >
+                    <span className="home__trend-label">{item.label}</span>
+                  </Link>
+                ))}
             </div>
-          ))}
+            <div className="home__trending-row home__trending-row-2">
+              {trending
+                .filter((item) => item.row === 2)
+                .map((item) => (
+                  <Link
+                    key={item.label}
+                    to={`/search?q=${encodeURIComponent(item.label)}`}
+                    className="home__trend-card"
+                    style={{
+                      backgroundImage: `linear-gradient(180deg, rgba(179, 150, 109, 0.64) 32.96%, rgba(115, 115, 115, 0) 100%), url('${item.image}')`,
+                    }}
+                  >
+                    <span className="home__trend-label">{item.label}</span>
+                  </Link>
+                ))}
+            </div>
+          </div>
         </div>
       </section>
     </div>
   );
 }
+

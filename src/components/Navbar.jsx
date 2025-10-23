@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 import { useUi } from '@/context/UiContext';
@@ -12,20 +11,11 @@ export default function Navbar() {
   const { currency, language, openModal, openAuth } = useUi();
   const isAccountRoute = location.pathname.startsWith('/account');
 
-  const [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 100);
-    onScroll(); // run once on mount
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
   return (
     <header
       className={clsx(
         'navbar',
-        { 'navbar--accent': isAccountRoute },
-        { 'navbar--scrolled': scrolled }
+        { 'navbar--accent': isAccountRoute }
       )}
     >
       <div className="container navbar__inner">

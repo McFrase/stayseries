@@ -50,8 +50,8 @@ const trending = [
 
 const highlights = [
   {
-    title: 'Book now, pay at the property',
-    description: 'FREE cancellation on most rooms',
+    title: 'Secure your stay instantly',
+    description: 'FREE cancellation within 48 hours',
     image: '/assets/book now.png',
   },
   {

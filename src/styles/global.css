@@ -784,6 +784,8 @@ h6 {
 
 .home__highlight-body h3 {
   font-size: 1.05rem;
+  font-family: var(--font-ui);
+  font-weight: 700;
 }
 
 .home__highlight-body p {
